@@ -1,15 +1,5 @@
 -- Лабораторная работа №1
 -- Вариант 4: Онлайн-кинотеатр
-
-DROP TABLE IF EXISTS reviews CASCADE;
-DROP TABLE IF EXISTS watch_history CASCADE;
-DROP TABLE IF EXISTS subscription_plans CASCADE;
-DROP TABLE IF EXISTS subscriptions CASCADE;
-DROP TABLE IF EXISTS movie_genres CASCADE;
-DROP TABLE IF EXISTS movies CASCADE;
-DROP TABLE IF EXISTS genres CASCADE;
-DROP TABLE IF EXISTS users CASCADE;
-
 CREATE TABLE users (
     user_id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     username VARCHAR(50) NOT NULL,
