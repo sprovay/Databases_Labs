@@ -38,13 +38,16 @@ report AS (
            CASE WHEN COALESCE(mm.views_count, 0) = 0 THEN 0
                 ELSE ROUND(100.0 * mm.completed_views / mm.views_count, 2)
            END AS completion_percent,
-           LAG(COALESCE(mm.views_count, 0)) OVER (
-               PARTITION BY g.genre_id ORDER BY months.month_start
-           ) AS previous_month_views
+           CASE WHEN months.month_start = DATE '2026-08-01' THEN NULL
+                ELSE COALESCE(prev.views_count, 0)
+           END AS previous_month_views
     FROM months
     CROSS JOIN genres AS g
     LEFT JOIN monthly_metrics AS mm
       ON mm.month_start = months.month_start AND mm.genre_id = g.genre_id
+    LEFT JOIN monthly_metrics AS prev
+      ON prev.month_start = (months.month_start - INTERVAL '1 month')::date
+     AND prev.genre_id = g.genre_id
 )
 SELECT month_start, genre, views_count, viewers_count, completed_views,
        completion_percent, previous_month_views,
