@@ -78,8 +78,6 @@ JOIN (VALUES
 JOIN movies AS m ON m.title = film_order.title;
 
 -- Первые 18 новых просмотров: по три на каждый из шести фильмов.
--- У каждого отзыва есть свой просмотр; автора и фильм задаёт watch_history.
--- Остаток от деления watch_id даёт разные оценки в допустимых диапазонах.
 INSERT INTO reviews (watch_id, rating, review_text, created_at)
 SELECT w.watch_id,
        CASE WHEN m.title IN ('Орбита', 'Сигнал', 'Дорога')
