@@ -1,6 +1,4 @@
 -- Выполнять после views.sql и materialized.sql.
--- В пункте 2.3 один UPDATE должен завершиться ошибкой из-за WITH CHECK OPTION.
--- При запуске через psql без ON_ERROR_STOP следующие пункты выполнятся.
 
 -- 1.1. Фильм без просмотров остаётся в рейтинге.
 SELECT genre, movie_title, views_count, completed_views, genre_rank
@@ -106,3 +104,7 @@ ROLLBACK;
 SELECT month_start, genre, watched_minutes
 FROM mv_genre_monthly_stats
 WHERE month_start = DATE '2026-09-01' AND genre = 'Триллер';
+
+-- Вывод материализованного представления.
+SELECT * FROM mv_genre_monthly_stats
+ORDER BY month_start, genre;

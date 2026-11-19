@@ -1,7 +1,6 @@
 -- ЛР №3, часть 1. Выполнять после lab2/data.sql.
 -- -P pager=off
 -- 1.1. Место фильма в каждом его жанре по числу завершённых просмотров.
-
 WITH movie_stats AS (
     SELECT m.movie_id, m.title,
            COUNT(w.watch_id) AS views_count,
